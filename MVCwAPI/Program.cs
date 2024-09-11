@@ -4,6 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 //this is the line that adds the API controller
 builder.Services.AddHttpClient();
+//this is the line that adds the service to the container
+builder.Services.AddScoped<ToDoApiService>();
+
 
 
 var app = builder.Build();
