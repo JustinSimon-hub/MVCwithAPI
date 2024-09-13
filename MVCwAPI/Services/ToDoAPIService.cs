@@ -15,24 +15,24 @@ namespace MVCwAPI.Services
                 public ToDoAPIService(HttpClient httpclient)
                 {
                     _httpclient = httpclient;
-                    _httpClient.BaseAddress = new Uri("http://localhost:5155/api/ToDoItems");
+                    _httpclient.BaseAddress = new Uri("http://localhost:5155/api/ToDoItems");
 
 
                 }
 
                 public async Task<List<ToDoItem>> GetToDoItemsAsync()
     {
-        return await _httpClient.GetFromJsonAsync<List<ToDoItem>>("");
+        return await _httpclient.GetFromJsonAsync<List<ToDoItem>>("");
     }
 
     public async Task<ToDoItem> GetToDoItemAsync(int id)
     {
-        return await _httpClient.GetFromJsonAsync<ToDoItem>($"/{id}");
+        return await _httpclient.GetFromJsonAsync<ToDoItem>($"/{id}");
     }
 
     public async Task<ToDoItem> CreateToDoItemAsync(ToDoItem newItem)
     {
-        var response = await _httpClient.PostAsJsonAsync("", newItem);
+        var response = await _httpclient.PostAsJsonAsync("", newItem);
         response.EnsureSuccessStatusCode();
 
         return await response.Content.ReadFromJsonAsync<ToDoItem>();
@@ -40,13 +40,15 @@ namespace MVCwAPI.Services
 
     public async Task UpdateToDoItemAsync(int id, ToDoItem updatedItem)
     {
-        var response = await _httpClient.PutAsJsonAsync($"/{id}", updatedItem);
+        var response = await _httpclient.PutAsJsonAsync($"/{id}", updatedItem);
         response.EnsureSuccessStatusCode();
     }
 
+    
+
     public async Task DeleteToDoItemAsync(int id)
     {
-        var response = await _httpClient.DeleteAsync($"/{id}");
+        var response = await _httpclient.DeleteAsync($"/{id}");
         response.EnsureSuccessStatusCode();
     }
                 

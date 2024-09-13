@@ -1,3 +1,5 @@
+using MVCwAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,7 +7,7 @@ builder.Services.AddControllersWithViews();
 //this is the line that adds the API controller
 builder.Services.AddHttpClient();
 //this is the line that adds the service to the container
-builder.Services.AddScoped<ToDoApiService>();
+builder.Services.AddScoped<ToDoAPIService>();
 
 
 
