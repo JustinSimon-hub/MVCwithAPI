@@ -1,0 +1,8 @@
+/Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.GeneratedMSBuildEditorConfig.editorconfig
+/Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.AssemblyInfoInputs.cache
+/Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.AssemblyInfo.cs
+/Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.csproj.CoreCompileInputs.cache
+/Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.MvcApplicationPartsAssemblyInfo.cache
+/Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.RazorAssemblyInfo.cache
+/Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.RazorAssemblyInfo.cs
+/Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.sourcelink.json
