@@ -1,31 +1,16 @@
-@model YourMvcApp.Models.ToDoItem
+@model MVCwAPI.Models.ViewModels.ToDoViewModel>
 
-@{
-    ViewData["Title"] = "Edit";
-}
+<h2>Edit ToDo Item</h2>
 
-<h1>Edit</h1>
-
-<h4>ToDoItem</h4>
-<hr />
-
-<form asp-action="Edit">
-    <input type="hidden" asp-for="Id" />
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
     <div class="form-group">
-        <label asp-for="Title" class="control-label"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" name="Name" value="@Model.Name" />
     </div>
     <div class="form-group">
-        <label asp-for="Description" class="control-label"></label>
-        <input asp-for="Description" class="form-control" />
-        <span asp-validation-for="Description" class="text-danger"></span>
+        <label for="IsComplete">Is Complete?</label>
+        <input type="checkbox" name="IsComplete" @(Model.IsComplete ? "checked" : "") />
     </div>
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
-    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
 </form>
-
-<p>
-    <a asp-action="Index">Back to List</a>
-</p>

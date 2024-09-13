@@ -1,81 +1,70 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using MVCwAPI.Services;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using MVCwAPI.Models;
+using MVCwAPI.Models.ViewModels;
 
-namespace MVCwAPI.Controllers
-{                 
+public class ToDoController : Controller
+{
+    private readonly HttpClient _httpClient;
 
-    public class ToDoController : Controller
+    public ToDoController(HttpClient httpClient)
     {
-        private readonly ToDoAPIService _apiService;
-
-    public ToDoController(ToDoAPIService apiService)
-    {
-        _apiService = apiService;
+        _httpClient = httpClient;
     }
 
+    // Get all ToDo items
     public async Task<IActionResult> Index()
     {
-        var items = await _apiService.GetToDoItemsAsync();
-        return View(items);
+        var response = await _httpClient.GetAsync("http://localhost:5155/api/ToDoItems");
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        var toDoItems = JsonConvert.DeserializeObject<List<ToDoItemViewModel>>(jsonResponse);
+        return View(toDoItems);
     }
 
-    public async Task<IActionResult> Details(int id)
+    // Get a ToDo item by Id for editing
+    public async Task<IActionResult> Edit(int id)
     {
-        var item = await _apiService.GetToDoItemAsync(id);
-        return View(item);
+        var response = await _httpClient.GetAsync($"http://localhost:5155/api/ToDoItems/{id}");
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        var toDoItem = JsonConvert.DeserializeObject<ToDoItemViewModel>(jsonResponse);
+        return View(toDoItem);
     }
 
-    [HttpGet]
+    // Update a ToDo item
+    [HttpPost]
+    public async Task<IActionResult> Edit(ToDoItemViewModel toDoItem)
+    {
+        var jsonContent = JsonConvert.SerializeObject(toDoItem);
+        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+        await _httpClient.PutAsync($"http://localhost:5155/api/ToDoItems/{toDoItem.Id}", content);
+        return RedirectToAction(nameof(Index));
+    }
+
+    // Add a new ToDo item
     public IActionResult Create()
     {
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(ToDoItem newItem)
+    public async Task<IActionResult> Create(ToDoItemViewModel toDoItem)
     {
-        if (ModelState.IsValid)
-        {
-            await _apiService.CreateToDoItemAsync(newItem);
-            return RedirectToAction(nameof(Index));
-        }
-        return View(newItem);
-    }
+        var jsonContent = JsonConvert.SerializeObject(toDoItem);
+        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-    public async Task<IActionResult> Edit(int id)
-    {
-        var item = await _apiService.GetToDoItemAsync(id);
-        return View(item);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Edit(int id, ToDoItem updatedItem)
-    {
-        if (ModelState.IsValid)
-        {
-            await _apiService.UpdateToDoItemAsync(id, updatedItem);
-            return RedirectToAction(nameof(Index));
-        }
-        return View(updatedItem);
-    }
-
-    public async Task<IActionResult> Delete(int id)
-    {
-        var item = await _apiService.GetToDoItemAsync(id);
-        return View(item);
-    }
-
-    [HttpPost, ActionName("Delete")]
-    public async Task<IActionResult> DeleteConfirmed(int id)
-    {
-        await _apiService.DeleteToDoItemAsync(id);
+        await _httpClient.PostAsync("http://localhost:5155/api/ToDoItems", content);
         return RedirectToAction(nameof(Index));
     }
+
+    // Delete a ToDo item
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _httpClient.DeleteAsync($"http://localhost:5155/api/ToDoItems/{id}");
+        return RedirectToAction(nameof(Index));
     }
 }
