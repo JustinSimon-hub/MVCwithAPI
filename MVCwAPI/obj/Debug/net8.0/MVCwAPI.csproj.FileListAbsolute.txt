@@ -6,3 +6,4 @@
 /Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.RazorAssemblyInfo.cache
 /Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.RazorAssemblyInfo.cs
 /Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.sourcelink.json
+/Users/justinsimon/Desktop/repos3/MVC_With_API/MVCwAPI/obj/Debug/net8.0/MVCwAPI.csproj.AssemblyReference.cache

@@ -1,4 +1,4 @@
-@model List<MVCwAPI.Models.ViewModels.ToDoViewModel>
+@model List<MyMvcApp.Models.ToDoItemViewModel>
 
 <h2>ToDo List</h2>
 
@@ -18,8 +18,10 @@
                 <td>@item.IsComplete</td>
                 <td>
                     <a href="/ToDo/Edit/@item.Id" class="btn btn-primary">Edit</a>
-                    <a href="/ToDo/Delete/@item.Id" class="btn btn-danger">Delete</a>
-                </td>
+           @*Delete form placed ... just *@
+            <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                    </form>                </td>
             </tr>
         }
     </tbody>
