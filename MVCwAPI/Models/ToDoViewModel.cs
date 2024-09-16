@@ -1,6 +1,6 @@
-namespace MVCwAPI.Models.ViewModels
+namespace MVCwAPI.Models
 {
-    public class ToDoItemViewModel
+    public class ToDoViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

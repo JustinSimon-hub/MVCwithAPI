@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using MVCwAPI.Models;
-using MVCwAPI.Models.ViewModels;
+
 
 public class ToDoController : Controller
 {
@@ -21,7 +21,7 @@ public class ToDoController : Controller
     {
         var response = await _httpClient.GetAsync("http://localhost:5155/api/ToDoItems");
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        var toDoItems = JsonConvert.DeserializeObject<List<ToDoItemViewModel>>(jsonResponse);
+        var toDoItems = JsonConvert.DeserializeObject<List<ToDoViewModel>>(jsonResponse);
         return View(toDoItems);
     }
 
@@ -30,13 +30,13 @@ public class ToDoController : Controller
     {
         var response = await _httpClient.GetAsync($"http://localhost:5155/api/ToDoItems/{id}");
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        var toDoItem = JsonConvert.DeserializeObject<ToDoItemViewModel>(jsonResponse);
+        var toDoItem = JsonConvert.DeserializeObject<ToDoViewModel>(jsonResponse);
         return View(toDoItem);
     }
 
     // Update a ToDo item
     [HttpPost]
-    public async Task<IActionResult> Edit(ToDoItemViewModel toDoItem)
+    public async Task<IActionResult> Edit(ToDoViewModel toDoItem)
     {
         var jsonContent = JsonConvert.SerializeObject(toDoItem);
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -52,7 +52,7 @@ public class ToDoController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(ToDoItemViewModel toDoItem)
+    public async Task<IActionResult> Create(ToDoViewModel toDoItem)
     {
         var jsonContent = JsonConvert.SerializeObject(toDoItem);
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
